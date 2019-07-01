@@ -50,15 +50,27 @@ public class ROT13  {
 
     public String rotate(String s, Character c) {
 
-        int rotate;
-        if(Character.isLowerCase(c)) {
-            rotate = (int) c - 97;
-        }
-        else {
-            rotate = (int) c - 65;
+        StringBuilder builder = new StringBuilder();
+        int counter = 0;
+        Boolean copying = false;
+        Boolean repeat = true;
+
+        for(int i = 0; i < s.length(); i++) {
+
+            if(c.equals(s.charAt(i))) copying = true;
+            if(copying) {
+                builder.append(s.charAt(i));
+                counter++;
+            }
+            if(counter == s.length()) break;
+            if(i == s.length() - 1 && repeat) {
+                i = -1;
+                repeat = false;
+            }
+
         }
 
-        return rotateByNum(s,rotate);
+        return builder.toString() ;
 
     }
 
